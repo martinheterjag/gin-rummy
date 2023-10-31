@@ -34,3 +34,33 @@ class TestDeck(unittest.TestCase):
     def test_empty_deck_size(self):
         deck = Deck(empty=True)
         assert len(deck.cards) == 0
+    
+    def test_draw_top_card(self):
+        deck = Deck()
+        suit = deck.cards[0].suit
+        rank = deck.cards[0].ranking
+        assert len(deck.cards) == 52
+        card = deck.draw()
+        assert card.ranking == rank
+        assert card.suit == suit
+        assert len(deck.cards) == 51
+
+    def test_merging_decks(self):
+        deck1 = Deck()
+        deck2 = Deck()
+        deck1.merge(deck2)
+        assert len(deck1.cards) == 2 * 52
+        assert len(deck2.cards) == 0
+
+        # If two fresh decks are merged there should
+        # be 8 ofeach rank and 26 of each suit
+        kings = 0
+        spades = 0
+        for card in deck1.cards:
+            if Suit(card.suit) == Suit.SPADES:
+                spades += 1 
+            if Ranking(card.ranking) == Ranking.KING:
+                kings += 1
+
+        assert kings == 8
+        assert spades == 26
