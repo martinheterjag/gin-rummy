@@ -1,3 +1,5 @@
+# Copyright (C) 2023 Martin Eriksson, licenced under MIT licence
+
 from enum import Enum
 import random
 
@@ -56,6 +58,8 @@ class Deck:
         if not empty:
             self.cards = self.make_deck()
             self.shuffle()
+        else:
+            self.cards = []
     
     # Creates and returns a new sorted deck with 52 cards (note that it doesnt put them in self.cards)
     def make_deck(this):
@@ -87,7 +91,7 @@ class Deck:
     def merge(self, deck):
         for c in range(len(deck.cards)):
             self.add_card(deck.draw())
-
+'''
 deck = Deck()
 deck.print_deck()
 print('----------')
@@ -97,4 +101,4 @@ deck2.print_deck()
 deck.merge(deck2)
 
 print(f'deck1: {len(deck.cards)}, deck2: {len(deck2.cards)}')
-    
+'''
