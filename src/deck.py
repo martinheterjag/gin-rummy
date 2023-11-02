@@ -48,13 +48,12 @@ class Card:
 
     def to_string(self, include_value=False):
         if include_value:
-            return f'{self.ranking_short()} {self.suit}  ({self.value})'
-        return f'{self.ranking_short()} {self.suit}'
+            return f'{self.ranking_short()}{self.suit} ({self.value})'
+        return f'{self.ranking_short()}{self.suit}'
     
 
 class Deck:
-    def __init__(self, face_up=False, empty=False):
-        self.face_up = face_up
+    def __init__(self, empty=False):
         if not empty:
             self.cards = self.make_deck()
             self.shuffle()
@@ -83,22 +82,17 @@ class Deck:
             print("Warning, trying to draw from an empty deck")
             return -1
         return self.cards.pop(0)
-    
+
+    def draw_at(self, index):
+        if len(self.cards) == 0:
+            print("Warning, trying to draw from an empty deck")
+            return -1
+        return self.cards.pop(index)
+
     def add_card(self, card):
-        self.cards.append(card)
+        self.cards.insert(0, card)
         return len(self.cards)
 
     def merge(self, deck):
         for c in range(len(deck.cards)):
             self.add_card(deck.draw())
-'''
-deck = Deck()
-deck.print_deck()
-print('----------')
-deck2 = Deck()
-deck2.print_deck()
-
-deck.merge(deck2)
-
-print(f'deck1: {len(deck.cards)}, deck2: {len(deck2.cards)}')
-'''
