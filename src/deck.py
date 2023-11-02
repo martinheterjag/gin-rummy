@@ -47,6 +47,8 @@ class Card:
         return short
 
     def suit_to_num(self, suit):
+        # returning of magnitude 100 to give suits higher
+        # value than ranking when sorting the deck or hand
         if Suit(suit) == Suit.CLUBS:
             return 100
         if Suit(suit) == Suit.DIAMONDS:
