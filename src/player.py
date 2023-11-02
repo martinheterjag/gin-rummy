@@ -8,6 +8,7 @@ class Player:
         self.score = 0
 
     def print_hand(self):
+        self.hand.cards.sort()
         i = 0
         indexes = ""
         cards = ""

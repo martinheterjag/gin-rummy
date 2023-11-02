@@ -46,10 +46,51 @@ class Card:
 
         return short
 
+    def suit_to_num(self, suit):
+        if Suit(suit) == Suit.CLUBS:
+            return 100
+        if Suit(suit) == Suit.DIAMONDS:
+            return 200
+        if Suit(suit) == Suit.SPADES:
+            return 300
+        if Suit(suit) == Suit.HEARTS:
+            return 400
+
     def to_string(self, include_value=False):
         if include_value:
             return f'{self.ranking_short()}{self.suit} ({self.value})'
         return f'{self.ranking_short()}{self.suit}'
+    
+    # Implement comparison funcitons to be able to sort
+    def __lt__(self, other):
+        s = self.suit_to_num(self.suit) + self.ranking
+        o = self.suit_to_num(other.suit) + other.ranking
+        return s < o
+
+    def __le__(self, other):
+        s = self.suit_to_num(self.suit) + self.ranking
+        o = self.suit_to_num(other.suit) + other.ranking
+        return s <= o
+
+    def __eq__(self, other):
+        s = self.suit_to_num(self.suit) + self.ranking
+        o = self.suit_to_num(other.suit) + other.ranking
+        return s == o
+
+    def __ne__(self, other):
+        s = self.suit_to_num(self.suit) + self.ranking
+        o = self.suit_to_num(other.suit) + other.ranking
+        return s != o
+
+    def __gt__(self, other):
+        s = self.suit_to_num(self.suit) + self.ranking
+        o = self.suit_to_num(other.suit) + other.ranking
+        return s > o
+
+    def __ge__(self, other):
+        s = self.suit_to_num(self.suit) + self.ranking
+        o = self.suit_to_num(other.suit) + other.ranking
+        return s >= o
     
 
 class Deck:
