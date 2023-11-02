@@ -16,7 +16,6 @@ class Game:
         self.turn = 0
         print("\n♣️♦♠️♥️ G I N ♣️♦️♠️♥️ R U M M Y ♣️♦♠️♥️\n")
 
-
     def deal_cards(self):
         self.draw_pile = Deck()
         self.discard_pile = Deck(empty=True)
