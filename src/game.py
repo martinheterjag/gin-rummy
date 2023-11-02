@@ -36,7 +36,8 @@ class Game:
         print("Hand:")
         self.players[self.turn].print_hand()
         print("\nDraw from (1)Draw pile or (2)Discard pile?")
-    
+
+    # First action each turn
     def pick_pile(self, pile) -> bool:
         if pile == 1:
             print("You picked the draw pile")
@@ -53,8 +54,10 @@ class Game:
         print("\npick a card from 1 to 11?")
         return True
 
+    # Second action each turn
     def play_card(self, card_to_play):
-        print(f"You picked ({card_to_play})")
+        card_str = self.players[self.turn].hand.cards[card_to_play - 1].to_string()
+        print(f"You picked ({card_to_play}) {card_str}")
         self.discard_pile.add_card(
             self.players[self.turn].hand.draw_at(card_to_play - 1))
 
