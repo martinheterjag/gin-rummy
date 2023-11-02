@@ -31,7 +31,7 @@ class Game:
     def start_turn(self):
         # Show cards
         print(f"----- Player {self.turn + 1}'s turn -----")
-        print(f"Draw Pile: {len(self.draw_pile.cards)}")
+        print(f"Draw Pile: {len(self.draw_pile.cards)} cards left")
         print(f"Discard Pile: {self.discard_pile.cards[0].to_string()}")
         print("Hand:")
         self.players[self.turn].print_hand()

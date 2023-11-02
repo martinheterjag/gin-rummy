@@ -31,7 +31,8 @@ def main() -> int:
         game.pick_pile(pile)
         card = read_input(11)
         game.play_card(card)
-        time.sleep(1)
+        print('\nPress Enter to end your turn...')
+        input()
         os.system('cls' if os.name == 'nt' else 'clear')
 
 
