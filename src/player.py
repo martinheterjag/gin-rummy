@@ -15,7 +15,10 @@ class Player:
         for card in self.hand.cards:
             i += 1
             indexes += f"({i})\t"
-            cards += f"{card.to_string()}\t"
+            # Mark card as with * if in a set or a sequends
+            used_card = self.hand.in_sequence_or_set(card)
+            mark = "*" if used_card else ""
+            cards += f"{card.to_string()}{mark}\t"
 
         print(indexes)
         print(cards)

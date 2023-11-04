@@ -58,10 +58,14 @@ class Card:
         if Suit(suit) == Suit.HEARTS:
             return 400
 
-    def to_string(self, include_value=False):
+    def to_string(self, include_value=False, clear_value=True):
+        value = self.value
+        if clear_value == True:
+            value = 0
         if include_value:
-            return f'{self.ranking_short()}{self.suit} ({self.value})'
-        return f'{self.ranking_short()}{self.suit}'
+            return f'{self.ranking_short()}{self.suit} ({value})'
+        else:
+            return f'{self.ranking_short()}{self.suit}'
     
     # Implement comparison funcitons to be able to sort
     def __lt__(self, other):
@@ -111,9 +115,15 @@ class Deck:
                 cards.append(Card(s.value, r.value))
         return cards
     
-    def print_deck(self):
+    def print_deck(self, include_value=False):
         for c in self.cards:
-            print(c.to_string())
+            if include_value:
+                if self.in_sequence_or_set(c):
+                    print(c.to_string(include_value, clear_value=True))
+                else:
+                    print(c.to_string(include_value, clear_value=False))
+            else:
+                print(c.to_string())
 
     def shuffle(self, quiet=True):
         if not quiet:
@@ -139,3 +149,32 @@ class Deck:
     def merge(self, deck):
         for c in range(len(deck.cards)):
             self.add_card(deck.draw())
+
+    # Functions specific for hands, Might be a good idea to make
+    # a hand class if many of these fucntions are needed
+
+    # Used to find sets or sequences in hand
+    def in_sequence_or_set(self, card):
+        sets = self.find_sets()
+        cards_in_sequences = self.find_sequences()
+        if card in sets:
+            return True
+        else:
+            return False
+
+    def find_sets(self):
+        cards_in_sets = []
+        # Create a list of values
+        list_of_values = []
+        for card in self.cards:
+            # print(f'making a list with {card.value}')
+            list_of_values.append(card.ranking)
+        # print(f'made this list: {list_of_values}')
+        for card in self.cards:
+            if list_of_values.count(card.ranking) >= 3:
+                cards_in_sets.append(card)
+        return cards_in_sets
+
+    def find_sequences(self):
+        # TODO: implement
+        return []
