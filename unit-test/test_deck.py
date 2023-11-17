@@ -65,7 +65,7 @@ class TestDeck(unittest.TestCase):
         assert kings == 8
         assert spades == 26
 
-    def test_find_sets_3_kings(self):
+    def test_find_sets_or_sequences_3_kings(self):
         print("find sets")
         deck = Deck()
         deck.cards.sort()
@@ -84,7 +84,7 @@ class TestDeck(unittest.TestCase):
         assert hand.in_sequence_or_set(hand.cards[2]) == True
         assert hand.in_sequence_or_set(hand.cards[3]) == True
 
-    def test_find_sets_4_kings_3_queens(self):
+    def test_find_sets_or_sequences_4_kings_3_queens(self):
         print("find sets")
         deck = Deck()
         deck.cards.sort()
@@ -104,7 +104,7 @@ class TestDeck(unittest.TestCase):
         for c in hand.cards:
             assert hand.in_sequence_or_set(c) == True
 
-    def test_find_sets_2_kings(self):
+    def test_find_sets_or_sequences_2_kings(self):
         print("find sets")
         deck = Deck()
         deck.cards.sort()
@@ -121,13 +121,13 @@ class TestDeck(unittest.TestCase):
         assert hand.in_sequence_or_set(hand.cards[1]) == False
         assert hand.in_sequence_or_set(hand.cards[2]) == False
 
-    def test_find_sets_king_queen_jack_different_suit(self):
+    def test_find_sets_or_sequences_king_queen_jack_different_suit(self):
         print("find sets")
         deck = Deck()
         deck.cards.sort()
         hand = Deck(empty=True)
 
-        # Draw 2 kings and a five of diamonds
+        # Draw king jack queen different suits
         hand.add_card(deck.draw_at(51))
         hand.add_card(deck.draw_at(37))
         hand.add_card(deck.draw_at(23))
@@ -137,3 +137,52 @@ class TestDeck(unittest.TestCase):
         assert hand.in_sequence_or_set(hand.cards[0]) == False
         assert hand.in_sequence_or_set(hand.cards[1]) == False
         assert hand.in_sequence_or_set(hand.cards[2]) == False
+
+    def test_find_sequences_king_queen_jack_same_suit(self):
+        print("find sets")
+        deck = Deck()
+        deck.cards.sort()
+        hand = Deck(empty=True)
+
+        # Draw king jack queen of hearts
+        hand.add_card(deck.draw_at(51))
+        hand.add_card(deck.draw_at(50))
+        hand.add_card(deck.draw_at(49))
+
+        hand.print_deck(include_value=True)
+
+        assert hand.in_sequence_or_set(hand.cards[0]) == True
+        assert hand.in_sequence_or_set(hand.cards[1]) == True
+        assert hand.in_sequence_or_set(hand.cards[2]) == True
+
+    def test_find_sequences_many_cards(self):
+        print("find sets")
+        deck = Deck()
+        deck.cards.sort()
+        hand = Deck(empty=True)
+
+        # Draw lots of cards in sequence and not in sequence
+        hand.add_card(deck.draw_at(51))
+        hand.add_card(deck.draw_at(50))
+        hand.add_card(deck.draw_at(49))
+        hand.add_card(deck.draw_at(30))
+        hand.add_card(deck.draw_at(29))
+        hand.add_card(deck.draw_at(28))
+        hand.add_card(deck.draw_at(27))
+        hand.add_card(deck.draw_at(26))
+        hand.add_card(deck.draw_at(25))
+        hand.add_card(deck.draw_at(24))
+        hand.add_card(deck.draw_at(1))
+        hand.print_deck(include_value=True)
+
+        assert hand.in_sequence_or_set(hand.cards[0]) == False
+        assert hand.in_sequence_or_set(hand.cards[1]) == False
+        assert hand.in_sequence_or_set(hand.cards[2]) == False
+        assert hand.in_sequence_or_set(hand.cards[3]) == True
+        assert hand.in_sequence_or_set(hand.cards[4]) == True
+        assert hand.in_sequence_or_set(hand.cards[5]) == True
+        assert hand.in_sequence_or_set(hand.cards[6]) == True
+        assert hand.in_sequence_or_set(hand.cards[7]) == True
+        assert hand.in_sequence_or_set(hand.cards[8]) == True
+        assert hand.in_sequence_or_set(hand.cards[9]) == True
+        assert hand.in_sequence_or_set(hand.cards[10]) == True

@@ -156,8 +156,8 @@ class Deck:
     # Used to find sets or sequences in hand
     def in_sequence_or_set(self, card):
         sets = self.find_sets()
-        cards_in_sequences = self.find_sequences()
-        if card in sets:
+        sequences = self.find_sequences()
+        if card in sets or card in sequences:
             return True
         else:
             return False
@@ -176,5 +176,21 @@ class Deck:
         return cards_in_sets
 
     def find_sequences(self):
-        # TODO: implement
-        return []
+        # A sequence is at least three cards
+        cards_in_sequence = []
+        list_of_values = []
+        for card in self.cards:
+            # print(f'making a list with {card.ranking + card.suit_to_num(card.suit)}')
+            list_of_values.append(card.ranking + card.suit_to_num(card.suit))
+
+        for card in self.cards:
+            if (card.ranking + card.suit_to_num(card.suit) + 1 in list_of_values  \
+                    and card.ranking + card.suit_to_num(card.suit) + 2 in list_of_values) \
+                    or (card.ranking + card.suit_to_num(card.suit) - 1 in list_of_values  \
+                    and card.ranking + card.suit_to_num(card.suit) - 2 in list_of_values) \
+                    or (card.ranking + card.suit_to_num(card.suit) - 1 in list_of_values  \
+                    and card.ranking + card.suit_to_num(card.suit) + 1 in list_of_values):
+                # print (f"card is in sequence: {card.to_string()}")
+                cards_in_sequence.append(card)
+
+        return cards_in_sequence
